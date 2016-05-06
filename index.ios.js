@@ -28,6 +28,7 @@ class reactBonjour extends Component {
   }
 
   fetchData() {
+    let _url = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json';
     fetch(_url).then(res => res.json())
       .then(data => this.setState({
         dataSource: this.state.dataSource.cloneWithRows(data.movies),
@@ -40,40 +41,34 @@ class reactBonjour extends Component {
     if(this.state.loaded) return this.renderLoadingView();
 
     return (
-      <ListView 
+      <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderMovies}
-        style={styles.listView}/>
+        style={styles.listView} />
     );
-  }  
+  }
 
   renderLoadingView() {
     return (
       <View style={style.container}>
-        
+        <Text>Loading movies...</Text>
       </View>
     )
   }
 
-  renderMovies() {}
-
-    /*let movie = {
-      title: 'Best day of my life',
-      year: '2016',
-      poster: 'https://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2326492532.jpg'
-    }
+  renderMovies(movie) {
     return (
       <View style={styles.container}>
-        <Image 
-          source={{uri: movie.poster}}
+        <Image
+          source={{uri: movie.posters.thumbnail}}
           style={styles.posters} />
         <View style={styles.rightContainer}>
           <Text style={styles.title}>{movie.title}</Text>
           <Text style={styles.year}>{movie.year}</Text>
         </View>
       </View>
-    );
-  }*/
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -98,6 +93,10 @@ const styles = StyleSheet.create({
   },
   year: {
     textAlign: 'center'
+  },
+  listView: {
+    padding: 20,
+    backgroundColor: '#F5FCFF'
   }
 });
 
